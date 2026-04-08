@@ -2,31 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Google Verification -->
     <meta
       name="google-site-verification"
       content="Dl5AhYtXsjz7T5DNMV9jKKifo5zwd5xbb7I7tLH9ZMI"
     />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noah Devfolio — Developer Portfolio</title>
+    <!-- Basic SEO -->
+    <title>Atul Kumar Tiwari | iOS Developer Portfolio</title>
     <meta
       name="description"
-      content="Atul Kumar Tiwari — iOS Developer and Software Engineer specializing in Swift, SwiftUI, UIKit, and SDK development."
+      content="Atul Kumar Tiwari (also known as Atul Krishna Tiwari) — iOS Developer and Software Engineer specializing in Swift, SwiftUI, UIKit, and SDK development."
     />
     <meta
       name="keywords"
-      content="iOS Developer, Swift, SwiftUI, UIKit, SDK, Automation, Mobile Engineer"
+      content="Atul Kumar Tiwari, iOS Developer, Swift, SwiftUI, UIKit, Mobile Engineer"
     />
     <meta name="author" content="Atul Kumar Tiwari" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0d16" />
+    <!-- Open Graph (for LinkedIn, Facebook) -->
     <meta property="og:title" content="Atul Kumar Tiwari — iOS Developer" />
     <meta
       property="og:description"
       content="Experienced iOS Developer focused on Swift, SwiftUI, UIKit, and SDK automation."
     />
     <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://atulkrishnatiwariportfolio.netlify.app/"
+    />
     <meta property="og:image" content="/og-image.svg" />
-    <meta property="og:url" content="/" />
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Atul Kumar Tiwari — iOS Developer" />
     <meta
@@ -34,8 +40,24 @@
       content="Swift, SwiftUI, UIKit, REST APIs, Core Data, and automation-focused iOS engineering."
     />
     <meta name="twitter:image" content="/og-image.svg" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Structured Data (VERY IMPORTANT for Google) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Atul Kumar Tiwari",
+        "alternateName": "Atul Krishna Tiwari",
+        "url": "https://atulkrishnatiwariportfolio.netlify.app"
+      }
+    </script>
   </head>
   <body>
+    <!-- IMPORTANT: Make sure your React UI renders your name as H1 -->
+    <!-- Example (inside your React app): -->
+    <!-- <h1>Atul Kumar Tiwari</h1>
+         <p>Also known as Atul Krishna Tiwari</p> -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
