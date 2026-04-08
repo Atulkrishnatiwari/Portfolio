@@ -1,12 +1,5 @@
-import { type CSSProperties, useEffect, useMemo, useState } from "react"
-import {
-  motion,
-  type MotionValue,
-  useAnimationFrame,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion"
+import { useEffect, useMemo, useState } from "react"
+import { motion } from "framer-motion"
 import { socialLinks } from "../data/portfolio"
 
 const orbitSkills = [
@@ -35,25 +28,12 @@ export function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-  const [paused, setPaused] = useState(false)
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const [isPaused, setIsPaused] = useState(false)
   const [selectedSkill, setSelectedSkill] = useState<(typeof orbitSkills)[number] | null>(
     null
   )
 
   const role = useMemo(() => roles[roleIndex] ?? roles[0], [roleIndex])
-  const rotation = useMotionValue(0)
-  const counterRotate = useTransform(rotation, (value) => -value)
-  const parallaxX = useMotionValue(0)
-  const parallaxY = useMotionValue(0)
-  const smoothX = useSpring(parallaxX, { stiffness: 80, damping: 20 })
-  const smoothY = useSpring(parallaxY, { stiffness: 80, damping: 20 })
-
-  useAnimationFrame((_time, delta) => {
-    if (paused || selectedSkill) return
-    const next = (rotation.get() + delta * 0.02) % 360
-    rotation.set(next)
-  })
 
   useEffect(() => {
     const typingSpeed = isDeleting ? 40 : 80
@@ -83,6 +63,8 @@ export function Hero() {
   }, [charIndex, isDeleting, role])
 
   const typedText = role.slice(0, charIndex)
+  const marqueeLoop = [...orbitSkills, ...orbitSkills]
+  const marqueePaused = isPaused || Boolean(selectedSkill)
 
   return (
     <motion.section
@@ -137,93 +119,44 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          className="relative flex items-center justify-center"
-          style={{
-            width: "min(82vw, 420px)",
-            height: "min(82vw, 420px)",
-            ...( { "--radius": "clamp(120px, 28vw, 170px)" } as CSSProperties ),
-          }}
-          onMouseMove={(event) => {
-            const rect = event.currentTarget.getBoundingClientRect()
-            const x = (event.clientX - rect.left - rect.width / 2) / rect.width
-            const y = (event.clientY - rect.top - rect.height / 2) / rect.height
-            parallaxX.set(x * 12)
-            parallaxY.set(y * 12)
-          }}
-          onMouseLeave={() => {
-            parallaxX.set(0)
-            parallaxY.set(0)
-          }}
+          className="w-full max-w-4xl space-y-4"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
-          <motion.div className="absolute inset-0" style={{ x: smoothX, y: smoothY }}>
-            <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ width: "calc(var(--radius) * 2)", height: "calc(var(--radius) * 2)" }}
-            >
-              <svg className="h-full w-full" viewBox="-2 -2 104 104">
-                <circle className="orbit-path" cx="50" cy="50" r="50" />
-                {orbitSkills.map((skill, index) => {
-                  const angle = (360 / orbitSkills.length) * index
-                  const nextAngle = (360 / orbitSkills.length) * ((index + 1) % orbitSkills.length)
-                  const radius = 50
-                  const x1 = 50 + radius * Math.cos((angle - 90) * (Math.PI / 180))
-                  const y1 = 50 + radius * Math.sin((angle - 90) * (Math.PI / 180))
-                  const x2 = 50 + radius * Math.cos((nextAngle - 90) * (Math.PI / 180))
-                  const y2 = 50 + radius * Math.sin((nextAngle - 90) * (Math.PI / 180))
-                  return (
-                    <line
-                      key={`${skill.name}-line`}
-                      className="orbit-line"
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                    />
-                  )
-                })}
-              </svg>
+          <div className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}>
+            <div className="skill-marquee__track">
+              {marqueeLoop.map((skill, index) => (
+                <button
+                  type="button"
+                  key={`skill-left-${skill.name}-${index}`}
+                  className={categoryStyles[skill.category]}
+                  onClick={() => setSelectedSkill(skill)}
+                >
+                  <span className="mr-2" aria-hidden>
+                    {skill.icon}
+                  </span>
+                  {skill.name}
+                </button>
+              ))}
             </div>
-
-            <motion.div className="absolute inset-0" style={{ rotate: rotation }}>
-              {orbitSkills.map((skill, index) => {
-                const angle = (360 / orbitSkills.length) * index
-                return (
-                  <div
-                    key={skill.name}
-                    className="absolute left-1/2 top-1/2"
-                    style={{
-                      transform: `rotate(${angle}deg) translateX(var(--radius))`,
-                    }}
-                  >
-                    <div style={{ transform: `rotate(${-angle}deg)` }}>
-                      <OrbitItem
-                        name={skill.name}
-                        category={skill.category}
-                        icon={skill.icon}
-                        rotation={rotation}
-                        counterRotate={counterRotate}
-                        angle={angle}
-                        active={hoveredSkill === skill.name}
-                        onEnter={() => {
-                          setPaused(true)
-                          setHoveredSkill(skill.name)
-                        }}
-                        onLeave={() => {
-                          setPaused(false)
-                          setHoveredSkill(null)
-                        }}
-                        onClick={() => setSelectedSkill(skill)}
-                      />
-                    </div>
-                  </div>
-                )
-              })}
-            </motion.div>
-          </motion.div>
-
-          <motion.div className="glass-card no-hover absolute inset-0 z-10 m-auto flex h-28 w-28 items-center justify-center rounded-3xl text-2xl font-semibold text-white shadow-glow md:h-32 md:w-32">
-            ATUL
-          </motion.div>
+          </div>
+          <div className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}>
+            <div className="skill-marquee__track skill-marquee__track--reverse">
+              {marqueeLoop.map((skill, index) => (
+                <button
+                  type="button"
+                  key={`skill-right-${skill.name}-${index}`}
+                  className={categoryStyles[skill.category]}
+                  onClick={() => setSelectedSkill(skill)}
+                >
+                  <span className="mr-2" aria-hidden>
+                    {skill.icon}
+                  </span>
+                  {skill.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -279,6 +212,7 @@ export function Hero() {
                   </h3>
                 </div>
                 <button
+                  type="button"
                   className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300 transition hover:border-white/30 hover:text-white"
                   onClick={() => setSelectedSkill(null)}
                 >
@@ -313,60 +247,7 @@ export function Hero() {
           ) : null}
         </motion.div>
       </motion.div>
+
     </motion.section>
-  )
-}
-
-type OrbitItemProps = {
-  name: string
-  category: string
-  icon: string
-  rotation: MotionValue<number>
-  counterRotate: MotionValue<number>
-  angle: number
-  active: boolean
-  onEnter: () => void
-  onLeave: () => void
-  onClick: () => void
-}
-
-function OrbitItem({
-  name,
-  category,
-  icon,
-  rotation,
-  counterRotate,
-  angle,
-  active,
-  onEnter,
-  onLeave,
-  onClick,
-}: OrbitItemProps) {
-  const depth = useTransform(rotation, (value: number) => {
-    const combined = (value + angle) % 360
-    const radians = ((combined - 90) * Math.PI) / 180
-    return (Math.cos(radians) + 1) / 2
-  })
-
-  const scale = useTransform(depth, [0, 1], [0.98, 1.03])
-  const opacity = useTransform(depth, [0, 1], [0.85, 1])
-  const blur = useTransform(depth, (value: number) => `blur(${(1 - value) * 0.6}px)`)
-
-  return (
-      <motion.button
-        type="button"
-        onMouseEnter={onEnter}
-        onMouseLeave={onLeave}
-        onClick={onClick}
-        style={{ rotate: counterRotate, scale, opacity, filter: blur }}
-        className={`inline-flex items-center justify-center rounded-full border px-3 py-1 text-xs font-medium shadow-sm transition hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(99,179,237,0.55)] md:text-sm ${
-          categoryStyles[category]
-        } ${active ? "shadow-[0_0_24px_rgba(90,108,255,0.5)]" : ""}`}
-      >
-      <span className="mr-2 text-sm" aria-hidden>
-        {icon}
-      </span>
-      {name}
-    </motion.button>
   )
 }
