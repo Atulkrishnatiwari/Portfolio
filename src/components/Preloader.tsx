@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 export function Preloader() {
   return (
     <motion.div
-      className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-[#0b0d16]"
+      className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-[#020617]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}

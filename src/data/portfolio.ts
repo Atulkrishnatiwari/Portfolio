@@ -8,13 +8,13 @@ export const navLinks = [
   { label: "Achievements", href: "#achievements" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
-]
+];
 
 export const metrics = [
   { value: "2+", label: "Years in iOS" },
   { value: "3", label: "SDK upgrades" },
   { value: "15%", label: "Stability gains" },
-]
+];
 
 export const skills = [
   { name: "Swift + SwiftUI", level: 92 },
@@ -22,7 +22,7 @@ export const skills = [
   { name: "REST APIs + Firebase", level: 84 },
   { name: "Objective-C", level: 78 },
   { name: "React + React Native", level: 76 },
-]
+];
 
 export const experiences = [
   {
@@ -51,7 +51,7 @@ export const experiences = [
       "Optimized button execution time from 7s to 2s",
     ],
   },
-]
+];
 
 export const projects = [
   {
@@ -95,40 +95,43 @@ export const projects = [
       "Focused on reliability, performance, and smooth user flows",
     ],
   },
-]
+];
 
 export const achievements = [
   {
     title: "Ranorex Swift Support Award",
-    detail: "Received appreciation for Ranorex Swift support at Celestial Systems.",
+    detail:
+      "Received appreciation for Ranorex Swift support at Celestial Systems.",
   },
   {
     title: "Performance Improvements",
     detail: "Boosted app performance by 15% through MVVM-led optimizations.",
   },
-]
+];
 
 export const workingOn = [
   {
     title: "Nation Wide Fuel Mobile",
-    detail: "Building a cross-platform app in React Native + TypeScript with a focus on stability and UX.",
+    detail:
+      "Building a cross-platform app in React Native + TypeScript with a focus on stability and UX.",
   },
   {
     title: "SDK modernization",
-    detail: "Upgrading SDKs to modern Swift APIs and reducing legacy Objective-C usage.",
+    detail:
+      "Upgrading SDKs to modern Swift APIs and reducing legacy Objective-C usage.",
   },
   {
     title: "SwiftUI component library",
     detail: "Curating reusable UI components with a focus on accessibility.",
   },
-]
+];
 
 export const githubStats = [
-  { label: "Public repos", value: "24" },
-  { label: "Total stars", value: "180" },
-  { label: "Contributions", value: "1.2k" },
-  { label: "Followers", value: "320" },
-]
+  { label: "Public repos", value: "12" },
+  { label: "Total stars", value: "0" },
+  { label: "Contributions", value: "56" },
+  { label: "Followers", value: "2" },
+];
 
 export const testimonials = [
   {
@@ -149,15 +152,18 @@ export const testimonials = [
     quote:
       "Appreciated for dependable delivery and clear communication on VBA automation tasks.",
   },
-]
+];
 
 export const contactLinks = [
   { label: "Email", value: "atulbhu001@gmail.com" },
   { label: "Phone", value: "+91-6202203179" },
   { label: "Location", value: "Noida, India" },
-]
+];
 
 export const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/atul-krishna-tiwari" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/atul-krishna-tiwari",
+  },
   { label: "GitHub", href: "https://github.com/Atulkrishnatiwari" },
-]
+];

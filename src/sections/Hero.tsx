@@ -85,9 +85,15 @@ export function Hero() {
   const typedText = role.slice(0, charIndex)
 
   return (
-    <section id="top" className="relative overflow-hidden pb-20 pt-28">
+    <motion.section
+      id="top"
+      className="relative overflow-hidden pb-24 pt-32"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
       <div className="absolute inset-0 -z-10 bg-grid opacity-50" />
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_#1b1e2f,_transparent_60%)]" />
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25),_transparent_60%)]" />
 
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 text-center">
         <motion.div
@@ -96,20 +102,25 @@ export function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="flex flex-col items-center gap-4"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.4em] text-ink-300">
+          <span className="font-mono text-xs uppercase tracking-[0.4em] text-ink-200">
             iOS Developer • Noida • +91-6202203179
           </span>
-          <h1 className="text-4xl font-semibold leading-tight text-slate-100 md:text-5xl">
+          <h1 className="text-gradient-hero text-5xl font-bold leading-tight md:text-6xl">
             Atul Kumar Tiwari
           </h1>
           <div className="flex items-center gap-3 text-lg text-slate-300">
-            <span className="font-mono text-ink-300">{typedText}</span>
-            <span className="h-5 w-[2px] animate-pulse bg-ink-300" />
+            <span className="font-mono text-ink-200">{typedText}</span>
+            <span className="h-5 w-[2px] animate-pulse bg-ink-200" />
           </div>
+          <p className="max-w-2xl text-sm text-slate-300 md:text-base">
+            Building premium <span className="text-ink-200">iOS</span> experiences with
+            <span className="text-ink-200"> Swift</span> and reliable cross-platform delivery in
+            <span className="text-ink-200"> React</span> ecosystems.
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-300">
             <a
               href="mailto:atulbhu001@gmail.com"
-              className="rounded-full border border-white/10 px-4 py-1 transition hover:border-white/30"
+              className="glass-card rounded-full px-4 py-1"
             >
               atulbhu001@gmail.com
             </a>
@@ -117,7 +128,7 @@ export function Hero() {
               <a
                 key={link.label}
                 href={link.href}
-                className="rounded-full border border-white/10 px-4 py-1 transition hover:border-white/30"
+                className="glass-card rounded-full px-4 py-1"
               >
                 {link.label}
               </a>
@@ -210,7 +221,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          <motion.div className="absolute left-1/2 top-1/2 z-10 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-white/15 bg-white/10 text-2xl font-semibold text-white shadow-lg backdrop-blur-xl md:h-32 md:w-32">
+          <motion.div className="glass-card no-hover absolute inset-0 z-10 m-auto flex h-28 w-28 items-center justify-center rounded-3xl text-2xl font-semibold text-white shadow-glow md:h-32 md:w-32">
             ATUL
           </motion.div>
         </motion.div>
@@ -223,20 +234,20 @@ export function Hero() {
         >
           <a
             href="#projects"
-            className="rounded-full bg-ink-500 px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:translate-y-[-2px]"
+            className="rounded-full bg-gradient-to-r from-ink-500 via-sky-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:translate-y-[-2px]"
           >
             View projects
           </a>
           <a
             href="/Atulkumartiwari.pdf.pdf"
             download
-            className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30"
+            className="glass-card rounded-full px-6 py-3 text-sm font-semibold text-white"
           >
             Download resume
           </a>
           <a
             href="#contact"
-            className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30"
+            className="glass-card rounded-full px-6 py-3 text-sm font-semibold text-white"
           >
             Book a call
           </a>
@@ -253,7 +264,7 @@ export function Hero() {
         >
           {selectedSkill ? (
             <motion.div
-              className="w-full max-w-lg rounded-3xl border border-white/10 bg-[#101323] p-6"
+              className="glass-card w-full max-w-lg rounded-3xl p-6"
               initial={{ opacity: 0, scale: 0.96, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -302,7 +313,7 @@ export function Hero() {
           ) : null}
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   )
 }
 
@@ -342,16 +353,16 @@ function OrbitItem({
   const blur = useTransform(depth, (value: number) => `blur(${(1 - value) * 0.6}px)`)
 
   return (
-    <motion.button
-      type="button"
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onClick={onClick}
-      style={{ rotate: counterRotate, scale, opacity, filter: blur }}
-      className={`inline-flex items-center justify-center rounded-full border px-3 py-1 text-xs font-medium shadow-sm transition md:text-sm ${
-        categoryStyles[category]
-      } ${active ? "shadow-[0_0_24px_rgba(90,108,255,0.5)]" : ""}`}
-    >
+      <motion.button
+        type="button"
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+        onClick={onClick}
+        style={{ rotate: counterRotate, scale, opacity, filter: blur }}
+        className={`inline-flex items-center justify-center rounded-full border px-3 py-1 text-xs font-medium shadow-sm transition hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(99,179,237,0.55)] md:text-sm ${
+          categoryStyles[category]
+        } ${active ? "shadow-[0_0_24px_rgba(90,108,255,0.5)]" : ""}`}
+      >
       <span className="mr-2 text-sm" aria-hidden>
         {icon}
       </span>

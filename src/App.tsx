@@ -45,7 +45,15 @@ function App() {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
+          <div className="absolute inset-0 -z-50 page-gradient" />
           <div className="absolute inset-0 -z-40 animated-gradient" />
+          <div className="absolute inset-0 -z-30 glow-spots" />
+          <div className="pointer-events-none absolute inset-0 -z-20">
+            <div className="blob blob-1" style={{ top: "-80px", left: "-60px" }} />
+            <div className="blob blob-2" style={{ top: "20%", right: "-120px" }} />
+            <div className="blob blob-3" style={{ bottom: "-120px", left: "20%" }} />
+          </div>
+          <div className="pointer-events-none absolute inset-0 -z-10 noise-overlay" />
           <Particles />
           <Hero />
           <About />

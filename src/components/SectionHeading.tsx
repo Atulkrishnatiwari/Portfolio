@@ -1,7 +1,9 @@
+import type { ReactNode } from "react"
+
 type SectionHeadingProps = {
   eyebrow: string
-  title: string
-  description?: string
+  title: ReactNode
+  description?: ReactNode
 }
 
 export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
@@ -10,13 +12,9 @@ export function SectionHeading({ eyebrow, title, description }: SectionHeadingPr
       <span className="text-xs uppercase tracking-[0.4em] text-slate-400">
         {eyebrow}
       </span>
-      <h2 className="text-3xl font-semibold text-slate-100 md:text-4xl">
-        {title}
-      </h2>
+      <h2 className="text-gradient text-4xl font-bold md:text-5xl">{title}</h2>
       {description ? (
-        <p className="max-w-2xl text-base text-slate-300 md:text-lg">
-          {description}
-        </p>
+        <p className="max-w-2xl text-base text-slate-300 md:text-lg">{description}</p>
       ) : null}
     </div>
   )
