@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react"
-import { motion } from "framer-motion"
-import { socialLinks } from "../data/portfolio"
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { socialLinks } from "../data/portfolio";
 
 const orbitSkills = [
   { name: "Swift", category: "mobile", years: 2.5, level: 92, icon: "🦅" },
@@ -8,63 +8,69 @@ const orbitSkills = [
   { name: "UIKit", category: "mobile", years: 2.5, level: 86, icon: "🧱" },
   { name: "React", category: "frontend", years: 1.5, level: 78, icon: "⚛️" },
   { name: "React Native", category: "mobile", years: 1, level: 72, icon: "📱" },
-  { name: "TypeScript", category: "frontend", years: 1.5, level: 76, icon: "🔷" },
+  {
+    name: "TypeScript",
+    category: "frontend",
+    years: 1.5,
+    level: 76,
+    icon: "🔷",
+  },
   { name: "JavaScript", category: "frontend", years: 2, level: 74, icon: "✨" },
   { name: "Git", category: "tools", years: 3, level: 85, icon: "🌿" },
   { name: "REST APIs", category: "backend", years: 2, level: 80, icon: "🔗" },
   { name: "Firebase", category: "backend", years: 1.5, level: 70, icon: "🔥" },
-]
+];
 
 const categoryStyles: Record<string, string> = {
   frontend: "orbit-skill orbit-skill--frontend",
   mobile: "orbit-skill orbit-skill--mobile",
   backend: "orbit-skill orbit-skill--backend",
   tools: "orbit-skill orbit-skill--tools",
-}
+};
 
-const roles = ["iOS Developer", "Software Engineer", "SwiftUI Specialist"]
+const roles = ["iOS Developer", "Software Engineer", "SwiftUI Specialist"];
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const [selectedSkill, setSelectedSkill] = useState<(typeof orbitSkills)[number] | null>(
-    null
-  )
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState<
+    (typeof orbitSkills)[number] | null
+  >(null);
 
-  const role = useMemo(() => roles[roleIndex] ?? roles[0], [roleIndex])
+  const role = useMemo(() => roles[roleIndex] ?? roles[0], [roleIndex]);
 
   useEffect(() => {
-    const typingSpeed = isDeleting ? 40 : 80
+    const typingSpeed = isDeleting ? 40 : 80;
     const timeout = setTimeout(() => {
       if (!isDeleting && charIndex < role.length) {
-        setCharIndex((prev) => prev + 1)
-        return
+        setCharIndex((prev) => prev + 1);
+        return;
       }
 
       if (isDeleting && charIndex > 0) {
-        setCharIndex((prev) => prev - 1)
-        return
+        setCharIndex((prev) => prev - 1);
+        return;
       }
 
       if (!isDeleting && charIndex === role.length) {
-        setIsDeleting(true)
-        return
+        setIsDeleting(true);
+        return;
       }
 
       if (isDeleting && charIndex === 0) {
-        setIsDeleting(false)
-        setRoleIndex((prev) => (prev + 1) % roles.length)
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
       }
-    }, typingSpeed)
+    }, typingSpeed);
 
-    return () => clearTimeout(timeout)
-  }, [charIndex, isDeleting, role])
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, role]);
 
-  const typedText = role.slice(0, charIndex)
-  const marqueeLoop = [...orbitSkills, ...orbitSkills]
-  const marqueePaused = isPaused || Boolean(selectedSkill)
+  const typedText = role.slice(0, charIndex);
+  const marqueeLoop = [...orbitSkills, ...orbitSkills];
+  const marqueePaused = isPaused || Boolean(selectedSkill);
 
   return (
     <motion.section
@@ -88,15 +94,17 @@ export function Hero() {
             iOS Developer • Noida • +91-6202203179
           </span>
           <h1 className="text-gradient-hero text-5xl font-bold leading-tight md:text-6xl">
-            Atul Kumar Tiwari
+            Atul Krishna Tiwari
           </h1>
           <div className="flex items-center gap-3 text-lg text-slate-300">
             <span className="font-mono text-ink-200">{typedText}</span>
             <span className="h-5 w-[2px] animate-pulse bg-ink-200" />
           </div>
           <p className="max-w-2xl text-sm text-slate-300 md:text-base">
-            Building premium <span className="text-ink-200">iOS</span> experiences with
-            <span className="text-ink-200"> Swift</span> and reliable cross-platform delivery in
+            Building premium <span className="text-ink-200">iOS</span>{" "}
+            experiences with
+            <span className="text-ink-200"> Swift</span> and reliable
+            cross-platform delivery in
             <span className="text-ink-200"> React</span> ecosystems.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-300">
@@ -123,7 +131,9 @@ export function Hero() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}>
+          <div
+            className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}
+          >
             <div className="skill-marquee__track">
               {marqueeLoop.map((skill, index) => (
                 <button
@@ -140,7 +150,9 @@ export function Hero() {
               ))}
             </div>
           </div>
-          <div className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}>
+          <div
+            className={`skill-marquee${marqueePaused ? " skill-marquee--paused" : ""}`}
+          >
             <div className="skill-marquee__track skill-marquee__track--reverse">
               {marqueeLoop.map((skill, index) => (
                 <button
@@ -205,7 +217,9 @@ export function Hero() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Skill</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                    Skill
+                  </p>
                   <h3 className="mt-2 flex items-center gap-2 text-2xl font-semibold text-white">
                     <span>{selectedSkill.icon}</span>
                     {selectedSkill.name}
@@ -221,14 +235,20 @@ export function Hero() {
               </div>
               <div className="mt-6 grid gap-4 text-sm text-slate-300 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Experience</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                    Experience
+                  </p>
                   <p className="mt-2 text-lg font-semibold text-white">
                     {selectedSkill.years} years
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Category</p>
-                  <p className="mt-2 text-lg font-semibold text-white">{selectedSkill.category}</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                    Category
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {selectedSkill.category}
+                  </p>
                 </div>
               </div>
               <div className="mt-6">
@@ -247,7 +267,6 @@ export function Hero() {
           ) : null}
         </motion.div>
       </motion.div>
-
     </motion.section>
-  )
+  );
 }
