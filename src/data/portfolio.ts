@@ -156,7 +156,7 @@ export const testimonials = [
 
 export const contactLinks = [
   { label: "Email", value: "atulbhu001@gmail.com" },
-  { label: "Phone", value: "+91-6202203179" },
+  { label: "Phone", value: "+91-62XXXXXX79" },
   { label: "Location", value: "Noida, India" },
 ];
 
