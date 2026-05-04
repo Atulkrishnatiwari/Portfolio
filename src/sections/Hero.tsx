@@ -91,7 +91,7 @@ export function Hero() {
           className="flex flex-col items-center gap-4"
         >
           <span className="font-mono text-xs uppercase tracking-[0.4em] text-ink-200">
-            iOS Developer • Noida • +91-6202203179
+            iOS Developer • Noida • +91-62XXXXXX79
           </span>
           <h1 className="text-gradient-hero text-5xl font-bold leading-tight md:text-6xl">
             Atul Krishna Tiwari
